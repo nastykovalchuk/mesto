@@ -5,6 +5,7 @@
   list-style: none;
   padding: 0;
   margin-top: 47.25px;
+  margin-bottom: 0;
 }
 
 @media (max-width: 1024px) {
@@ -16,5 +17,5 @@
 @media (max-width: 760px) {
   .elements__card {
     margin-top: 36px;
-  }
+      }
 }

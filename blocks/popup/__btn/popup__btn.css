@@ -9,6 +9,7 @@
   margin-top: 20px;
   padding: 0;
   cursor: pointer;
+  border: 0;
 }
 
 .popup__btn:hover {

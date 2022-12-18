@@ -28,9 +28,7 @@ function save(evt){
     closePopup(evt);
 }
 
-btnPopup.addEventListener('click', function (evt) {
-    save(evt);
-})
+btnPopup.addEventListener('click', save);
 
 editButtonProfile.addEventListener('click', function (evt) {
     openPopup(evt);
