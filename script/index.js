@@ -1,40 +1,85 @@
 let editButtonProfile = document.querySelector('.profile__edit-button');
 let addButtonProfile = document.querySelector('.profile__add-button');
-let btnPopup = document.querySelector('.popup__btn');
-let closeButtonProfile = document.querySelector('.popup__close-icon');
-let popup = document.querySelector('.popup');
+let profilePopupBtn = document.getElementById('profilePopupBtn');
+let placePopupBtn = document.getElementById('placePopupBtn');
+
+let closeIconProfile = document.getElementById('closeIconProfile');
+let closeIconPlace = document.getElementById('closeIconPlace');
+
+let profilePopup = document.getElementById('profilePopup');
+let placePopup = document.getElementById('placePopup');
+
 let openedPopup = document.querySelector('.popup_opened');
 let nameProfile = document.querySelector('.profile__name');
 let aboutProfile = document.querySelector('.profile__about');
+
 let nameInput = document.getElementById('name');
 let aboutMeInput = document.getElementById('aboutMe');
 
-function openPopup(evt) {
+let placeNameInput = document.getElementById('placeName');
+let linkInput = document.getElementById('link');
+
+let places = [];
+
+function openProfilePopup(evt) {
     evt.preventDefault();
-    popup.classList.add('popup_opened');
+    profilePopup.classList.add('popup_opened');
     nameInput.value = nameProfile.textContent;
     aboutMeInput.value = aboutProfile.textContent;
 }
 
-function closePopup(evt) {
+function closeProfilePopup(evt) {
     evt.preventDefault();
-    popup.classList.remove('popup_opened');
+    profilePopup.classList.remove('popup_opened');
 }
 
-function save(evt){
+function saveProfile(evt){
     evt.preventDefault();
     nameProfile.innerHTML = nameInput.value;
     aboutProfile.innerHTML = aboutMeInput.value;
-    closePopup(evt);
+    closeProfilePopup(evt);
 }
 
-btnPopup.addEventListener('click', function (evt) {
-    save(evt);
+
+profilePopupBtn.addEventListener('click', function (evt) {
+    saveProfile(evt);
 })
 
 editButtonProfile.addEventListener('click', function (evt) {
-    openPopup(evt);
+    openProfilePopup(evt);
 })
-closeButtonProfile.addEventListener('click', function (evt) {
-    closePopup(evt);
+closeIconProfile.addEventListener('click', function (evt) {
+    closeProfilePopup(evt);
 })
+
+
+function openPlacePopup(evt) {
+    evt.preventDefault();
+    placePopup.classList.add('popup_opened');
+}
+
+function closePlacePopup(evt) {
+    evt.preventDefault();
+    placePopup.classList.remove('popup_opened');
+}
+
+function addPlace(evt){
+    evt.preventDefault();
+    let obj = {name: placeNameInput.value, 
+              link: linkInput.value};
+    places.push(obj);
+    closePlacePopup(evt);
+}
+
+
+placePopupBtn.addEventListener('click', function (evt) {
+    addPlace(evt);
+})
+
+addButtonProfile.addEventListener('click', function (evt) {
+    openPlacePopup(evt);
+})
+closeIconPlace.addEventListener('click', function (evt) {
+    closePlacePopup(evt);
+})
+ 

@@ -108,14 +108,15 @@
       <footer class="footer">
         <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
       </footer>
-      <div class="popup">
+
+      <div class="popup" id="profilePopup">
         <div class="popup__container">
           <button
             class="popup__close-icon"
+            id="closeIconProfile"
             type="button"
             aria-label="Закрыть"
           ></button>
-
           <h2 class="popup__title">Редактировать профиль</h2>
 
           <form name="edit-info" class="popup__form" novalidate>
@@ -133,7 +134,37 @@
               type="text"
               placeholder="О себе"
             />
-            <button class="popup__btn" type="submit">Сохранить</button>
+            <button class="popup__btn" id="profilePopupBtn" type="submit">Сохранить</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="popup" id="placePopup">
+        <div class="popup__container">
+          <button
+            class="popup__close-icon"
+            id="closeIconPlace"
+            type="button"
+            aria-label="Закрыть"
+          ></button>
+          <h2 class="popup__title">Новое место</h2>
+
+          <form name="edit-info" class="popup__form" novalidate>
+            <input
+              class="popup__input"
+              id="placeName"
+              name="placeName"
+              type="text"
+              placeholder="Название"
+            />
+            <input
+              class="popup__input"
+              id="link"
+              name="link"
+              type="url"
+              placeholder="Ссылка на картинку"
+            />
+            <button class="popup__btn" id="placePopupBtn" type="submit">Создать</button>
           </form>
         </div>
       </div>
