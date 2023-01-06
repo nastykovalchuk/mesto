@@ -5,6 +5,9 @@
   list-style: none;
   padding: 0;
   margin-top: 47.25px;
+  row-gap: 20px;
+  column-gap: 17px;
+  margin-bottom: 0;
 }
 
 @media (max-width: 1024px) {

@@ -122,10 +122,15 @@ function renderElement(newObj) {
   like.addEventListener("click", function () {
   like.classList.toggle("elements__like-active");
   });
+  let deletebutton = newElement.querySelector(".elements__delete");
+  deletebutton.addEventListener("click", function () {
+  newElement.remove()
+  });
   gallery.prepend(newElement);
 }
 
 for (let place of initialCards) {
   renderElement(place);
 }
+
 
