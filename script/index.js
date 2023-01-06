@@ -19,7 +19,7 @@ let aboutMeInput = document.getElementById("aboutMe");
 let placeNameInput = document.getElementById("placeName");
 let linkInput = document.getElementById("link");
 
-let popup = document.querySelector('.popup');
+let popup = document.querySelector(".popup");
 
 const elementTemplate = document.querySelector("#element").content;
 const gallery = document.querySelector(".elements__card");
@@ -83,7 +83,6 @@ closeIconProfile.addEventListener("click", function (evt) {
   closeProfilePopup(evt);
 });
 
-
 function openPlacePopup(evt) {
   evt.preventDefault();
   placePopup.classList.add("popup_opened");
@@ -119,10 +118,14 @@ function renderElement(newObj) {
   newElement.querySelector(".elements__photo").src = newObj.link;
   newElement.querySelector(".elements__photo").alt = newObj.name;
   newElement.querySelector(".elements__title").textContent = newObj.name;
+  let like = newElement.querySelector(".elements__like");
+  like.addEventListener("click", function () {
+  like.classList.toggle("elements__like-active");
+  });
   gallery.prepend(newElement);
-
 }
 
-initialCards.map(item => {
-    renderElement(item)
-})
+for (let place of initialCards) {
+  renderElement(place);
+}
+
