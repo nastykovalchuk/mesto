@@ -1,156 +1,131 @@
-const editButtonProfile = document.querySelector(".profile__edit-button");
-const addButtonProfile = document.querySelector(".profile__add-button");
-
-const profilePopupBtn = document.getElementById("profilePopupBtn");
-const placePopupBtn = document.getElementById("placePopupBtn");
-
-const closeIconProfile = document.getElementById("closeIconProfile");
-const closeIconPlace = document.getElementById("closeIconPlace");
-const closeIconImage = document.getElementById("closeIconImage");
-
-const profilePopup = document.getElementById("profilePopup");
-const placePopup = document.getElementById("placePopup");
-const imagePopup = document.getElementById("imagePopup");
-
-const openedPopup = document.querySelector(".popup_opened");
 const nameProfile = document.querySelector(".profile__name");
 const aboutProfile = document.querySelector(".profile__about");
 
-const nameInput = document.getElementById("name");
-const aboutMeInput = document.getElementById("aboutMe");
-
-const placeNameInput = document.getElementById("placeName");
-const linkInput = document.getElementById("link");
-
-const popup = document.querySelector(".popup");
+const profileEditButton = document.querySelector(".profile__edit-button");
+const addPlaceButton = document.querySelector(".profile__add-button");
 
 const elementTemplate = document.querySelector("#element").content;
 const gallery = document.querySelector(".elements__card");
 
-const initialCards = [
-  {
-    name: "Архыз",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
-  },
-  {
-    name: "Челябинская область",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
-  },
-  {
-    name: "Иваново",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
-  },
-  {
-    name: "Камчатка",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
-  },
-  {
-    name: "Холмогорский район",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
-  },
-  {
-    name: "Байкал",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
-  },
-];
+const profilePopup = document.querySelector("#profilePopup");
+const placePopup = document.querySelector("#placePopup");
+const imagePopup = document.querySelector("#imagePopup");
 
-// profile popup
-function openProfilePopup(evt) {
-  evt.preventDefault();
-  profilePopup.classList.add("popup_opened");
-  nameInput.value = nameProfile.textContent;
-  aboutMeInput.value = aboutProfile.textContent;
+const closeIconProfile = document.querySelector("#closeIconProfile");
+const closeIconPlace = document.querySelector("#closeIconPlace");
+const closeIconImage = document.querySelector("#closeIconImage");
+
+const profileForm = document.querySelector("form[name=edit-info]");
+const nameInput = document.querySelector("#name");
+const aboutMeInput = document.querySelector("#aboutMe");
+
+const placeForm = document.querySelector("form[name=edit-place]");
+const placeNameInput = document.querySelector("#placeName");
+const linkInput = document.querySelector("#link");
+
+function openPopup(popup) {
+  popup.classList.add("popup_opened");
 }
 
-function closeProfilePopup(evt) {
-  evt.preventDefault();
-  profilePopup.classList.remove("popup_opened");
+function closePopup(popup) {
+  popup.classList.remove("popup_opened");
 }
 
-function saveProfile(evt) {
-  evt.preventDefault();
-  nameProfile.innerHTML = nameInput.value;
-  aboutProfile.innerHTML = aboutMeInput.value;
-  closeProfilePopup(evt);
+function renderCard(card) {
+  gallery.prepend(card);
 }
 
-profilePopupBtn.addEventListener("click", function (evt) {
-  saveProfile(evt);
-});
-
-editButtonProfile.addEventListener("click", function (evt) {
-  openProfilePopup(evt);
-});
-closeIconProfile.addEventListener("click", function (evt) {
-  closeProfilePopup(evt);
-});
-
-// place popup
-
-function openPlacePopup(evt) {
-  evt.preventDefault();
-  placePopup.classList.add("popup_opened");
+function setClassToglerOnClick(element, toggleClass) {
+  element.addEventListener("click", function () {
+    element.classList.toggle(toggleClass);
+  });
 }
 
-function closePlacePopup(evt) {
-  evt.preventDefault();
-  placePopup.classList.remove("popup_opened");
+function setElementRemoverOnClick(element, removingElement = element) {
+  element.addEventListener("click", function () {
+    removingElement.remove();
+  });
 }
 
-function addPlace(evt) {
-  evt.preventDefault();
-  let obj = { name: placeNameInput.value, link: linkInput.value };
-  renderElement(obj);
-  closePlacePopup(evt);
+// profile popup function
+
+function saveProfile(event) {
+  nameProfile.textContent = nameInput.value;
+  aboutProfile.textContent = aboutMeInput.value;
+  closePopup(profilePopup);
+  event.preventDefault();
 }
 
-placePopupBtn.addEventListener("click", function (evt) {
-  addPlace(evt);
-});
+// place popup function
 
-addButtonProfile.addEventListener("click", function (evt) {
-  openPlacePopup(evt);
-});
-closeIconPlace.addEventListener("click", function (evt) {
-  closePlacePopup(evt);
-});
+function addPlace(event) {
+  const obj = { name: placeNameInput.value, link: linkInput.value };
+  renderCard(createCard(obj));
+  placeForm.reset();
+  closePopup(placePopup);
+  event.preventDefault();
+}
 
-function renderElement(newObj) {
+function createCard(newObj) {
   const newElement = elementTemplate
     .querySelector(".elements__item")
     .cloneNode(true);
-  let image = newElement.querySelector(".elements__photo");
+
+  const image = newElement.querySelector(".elements__photo");
   image.src = newObj.link;
   image.alt = newObj.name;
   newElement.querySelector(".elements__title").textContent = newObj.name;
 
   image.addEventListener("click", function () {
-    imagePopup.classList.add("popup_opened");
-    imagePopup.getElementsByTagName("img")[0].src = newObj.link;
-    imagePopup.getElementsByTagName("img")[0].alt = newObj.name;
-    imagePopup.getElementsByTagName("figcaption")[0].textContent = newObj.name;
+    openPopup(imagePopup);
+    imagePopup.querySelector(".image__img").src = newObj.link;
+    imagePopup.querySelector(".image__img").alt = newObj.name;
+    imagePopup.querySelector(".image__figcaption").textContent = newObj.name;
   });
 
-  let like = newElement.querySelector(".elements__like");
-  like.addEventListener("click", function () {
-    like.classList.toggle("elements__like-active");
-  });
-  let deletebutton = newElement.querySelector(".elements__delete");
-  deletebutton.addEventListener("click", function () {
-    newElement.remove();
-  });
-  gallery.prepend(newElement);
+  const like = newElement.querySelector(".elements__like");
+  setClassToglerOnClick(like, "elements__like_active");
+
+  const deleteButton = newElement.querySelector(".elements__delete");
+  setElementRemoverOnClick(deleteButton, newElement);
+
+  return newElement;
 }
 
-for (let place of initialCards) {
-  renderElement(place);
+// initialize the gallery
+
+for (const card of initialCards) {
+  renderCard(createCard(card));
 }
 
-// img-popup
-function closeImagePopup(evt) {
-  evt.preventDefault();
-  imagePopup.classList.remove("popup_opened");
-}
-closeIconImage.addEventListener("click", function (evt) {
-  closeImagePopup(evt);
+// profile popup event listeners
+
+profileEditButton.addEventListener("click", function () {
+  openPopup(profilePopup);
+  nameInput.value = nameProfile.textContent;
+  aboutMeInput.value = aboutProfile.textContent;
+});
+
+closeIconProfile.addEventListener("click", function () {
+  closePopup(profilePopup);
+});
+
+profileForm.addEventListener("submit", saveProfile);
+
+// places popup event listeners
+
+addPlaceButton.addEventListener("click", function () {
+  openPopup(placePopup);
+});
+
+closeIconPlace.addEventListener("click", function () {
+  closePopup(placePopup);
+});
+
+placeForm.addEventListener("submit", addPlace);
+
+// image popup event listener
+
+closeIconImage.addEventListener("click", function () {
+  closePopup(imagePopup);
 });
