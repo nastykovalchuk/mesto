@@ -22,6 +22,8 @@ const aboutMeInput = document.querySelector("#aboutMe");
 const placeForm = document.querySelector("form[name=edit-place]");
 const placeNameInput = document.querySelector("#placeName");
 const linkInput = document.querySelector("#link");
+const imageFromPopup = imagePopup.querySelector(".image__img");
+const subtitleFromPopup = imagePopup.querySelector(".image__figcaption");
 
 function openPopup(popup) {
   popup.classList.add("popup_opened");
@@ -31,8 +33,8 @@ function closePopup(popup) {
   popup.classList.remove("popup_opened");
 }
 
-function renderCard(card) {
-  gallery.prepend(card);
+function renderCard(card, parentElement) {
+  parentElement.prepend(card);
 }
 
 function setClassToglerOnClick(element, toggleClass) {
@@ -60,7 +62,7 @@ function saveProfile(event) {
 
 function addPlace(event) {
   const obj = { name: placeNameInput.value, link: linkInput.value };
-  renderCard(createCard(obj));
+  renderCard(createCard(obj), gallery);
   placeForm.reset();
   closePopup(placePopup);
   event.preventDefault();
@@ -78,9 +80,9 @@ function createCard(newObj) {
 
   image.addEventListener("click", function () {
     openPopup(imagePopup);
-    imagePopup.querySelector(".image__img").src = newObj.link;
-    imagePopup.querySelector(".image__img").alt = newObj.name;
-    imagePopup.querySelector(".image__figcaption").textContent = newObj.name;
+    imageFromPopup.src = newObj.link;
+    imageFromPopup.alt = newObj.name;
+    subtitleFromPopup.textContent = newObj.name;
   });
 
   const like = newElement.querySelector(".elements__like");
@@ -95,7 +97,7 @@ function createCard(newObj) {
 // initialize the gallery
 
 for (const card of initialCards) {
-  renderCard(createCard(card));
+  renderCard(createCard(card), gallery);
 }
 
 // profile popup event listeners
