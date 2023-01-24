@@ -26,8 +26,13 @@
 
 **Возможность ставить лайки на карточках**  
 
-**Возможность просмотра увеличенной картинки нажатием на нее**  
+**Возможность просмотра увеличенной картинки нажатием на нее**    
 
-* [Ссылка на макет в Figma](https://www.figma.com/file/bjyvbKKJN2naO0ucURl2Z0/JavaScript.-Sprint-5?node-id=50160%3A110&t=9tuWE7wydTVGQf47-0)
+**Разработка валидации всех форм**  
+
+**Улучшение UX при работе с попапами**  
+
+
+* [Ссылка на макет в Figma](https://www.figma.com/file/kRVLKwYG3d1HGLvh7JFWRT/JavaScript.-Sprint-6?node-id=1124%3A73&t=JuNLoPWhz2CkmfcZ-0)
 
 * [Ссылка на GitHub](https://nastykovalchuk.github.io/mesto.github.io/)  
