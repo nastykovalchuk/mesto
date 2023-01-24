@@ -64,24 +64,36 @@
           ></button>
           <h2 class="popup__title">Редактировать профиль</h2>
 
-          <form name="edit-info" class="popup__form" novalidate>
-            <input
-              class="popup__input"
-              id="name"
-              name="name"
-              type="text"
-              placeholder="Имя"
-            />
-            <input
-              class="popup__input"
-              id="aboutMe"
-              name="aboutMe"
-              type="text"
-              placeholder="О себе"
-            />
-            <button class="popup__btn" id="profilePopupBtn" type="submit">
-              Сохранить
-            </button>
+          <form class="popup__form" novalidate>
+              <label>
+                <input
+                  class="popup__input"
+                  id="name-input"
+                  name="name"
+                  type="text"
+                  placeholder="Имя"
+                  minlength="2"
+                  maxlength="40"
+                  required
+                />
+                <span class="popup__input-error name-input-error"> </span>
+              </label>
+              <label class="popup__field">
+                <input
+                  class="popup__input"
+                  id="aboutMe-input"
+                  name="aboutMe"
+                  type="text"
+                  placeholder="О себе"
+                  minlength="2"
+                  maxlength="200"
+                  required
+                />
+                <span class="popup__input-error aboutMe-input-error"> </span>
+              </label>
+              <button class="popup__btn" id="profilePopupBtn" type="submit">
+                Сохранить
+              </button>
           </form>
         </div>
       </div>
@@ -96,28 +108,37 @@
           ></button>
           <h2 class="popup__title">Новое место</h2>
 
-          <form name="edit-info" class="popup__form" novalidate>
-            <input
-              class="popup__input"
-              id="placeName"
-              name="placeName"
-              type="text"
-              placeholder="Название"
-            />
-            <input
-              class="popup__input"
-              id="link"
-              name="link"
-              type="url"
-              placeholder="Ссылка на картинку"
-            />
+          <form class="popup__form" novalidate>
+            <label class="popup__field">
+              <input
+                class="popup__input"
+                id="placeName-input"
+                name="placeName"
+                type="text"
+                placeholder="Название"
+                required
+                minlength="2"
+                maxlength="30"
+              />
+              <span class="popup__input-error placeName-input-error"> </span>
+            </label>
+            <label class="popup__field">
+              <input
+                class="popup__input"
+                id="link-input"
+                name="link"
+                type="url"
+                placeholder="Ссылка на картинку"
+                required
+              />
+              <span class="popup__input-error link-input-error"> </span>
+            </label>
             <button class="popup__btn" id="placePopupBtn" type="submit">
               Создать
             </button>
           </form>
         </div>
       </div>
-
 
       <div class="popup" id="imagePopup">
         <div class="image__container">
@@ -133,9 +154,9 @@
           </figure>
         </div>
       </div>
-
-
     </div>
+    <script src="./script/initialCards.js"></script>
     <script src="./script/index.js"></script>
+    <script src="./script/validate.js"></script>
   </body>
 </html>
