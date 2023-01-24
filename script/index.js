@@ -1,3 +1,18 @@
+const editButtonProfile = document.querySelector(".profile__edit-button");
+const addButtonProfile = document.querySelector(".profile__add-button");
+
+const profilePopupBtn = document.getElementById("profilePopupBtn");
+const placePopupBtn = document.getElementById("placePopupBtn");
+
+const closeIconProfile = document.getElementById("closeIconProfile");
+const closeIconPlace = document.getElementById("closeIconPlace");
+const closeIconImage = document.getElementById("closeIconImage");
+
+const profilePopup = document.getElementById("profilePopup");
+const placePopup = document.getElementById("placePopup");
+const imagePopup = document.getElementById("imagePopup");
+
+const openedPopup = document.querySelector(".popup_opened");
 const nameProfile = document.querySelector(".profile__name");
 const aboutProfile = document.querySelector(".profile__about");
 
@@ -23,7 +38,6 @@ function openProfilePopup(evt) {
   aboutMeInput.value = aboutProfile.textContent;
   document.addEventListener("keydown", keydownClose);
 }
-
 
 function closeProfilePopup(evt) {
   evt.preventDefault();
@@ -107,8 +121,7 @@ function renderElement(newObj) {
   const newElement = elementTemplate
     .querySelector(".elements__item")
     .cloneNode(true);
-
-  const image = newElement.querySelector(".elements__photo");
+  let image = newElement.querySelector(".elements__photo");
   image.src = newObj.link;
   image.alt = newObj.name;
   newElement.querySelector(".elements__title").textContent = newObj.name;

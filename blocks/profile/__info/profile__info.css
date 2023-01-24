@@ -8,13 +8,14 @@
 
 @media (max-width: 760px) {
   .profile__info {
-    margin: 22.25px auto 0;
+    margin: auto;
     grid-gap: 14px;
   }
 }
 
 @media (max-width: 475px) {
   .profile__info {
+    margin: auto;
     max-width: 282px;
     grid-gap: 0;
   }
