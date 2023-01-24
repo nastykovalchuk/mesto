@@ -23,7 +23,7 @@ function openProfilePopup(evt) {
   aboutMeInput.value = aboutProfile.textContent;
   document.addEventListener("keydown", keydownClose);
 }
->>>>>>> develop
+
 
 function closeProfilePopup(evt) {
   evt.preventDefault();
