@@ -35,10 +35,6 @@ function openPopup(popup) {
   popup.classList.add("popup_opened");
   document.addEventListener("keydown", closeByEsc);
   document.addEventListener("click", closeByOverlayClick);
-  if (popup === profilePopup) {
-    nameInput.value = nameProfile.textContent;
-    aboutMeInput.value = aboutProfile.textContent;
-  }
 }
 
 function closePopup(popup) {
@@ -46,12 +42,6 @@ function closePopup(popup) {
   document.removeEventListener("click", closeByOverlayClick);
 
   popup.classList.remove("popup_opened");
-  if (popup === placePopup) {
-    placeNameInput.value = "";
-    linkInput.value = "";
-    placePopupBtn.disabled = true;
-    placePopupBtn.classList.add("popup__btn_inactive");
-  }
 }
 
 function closeByEsc(evt) {
@@ -62,7 +52,7 @@ function closeByEsc(evt) {
 }
 
 function closeByOverlayClick(evt) {
-  if (Array.from(evt.target.classList).find((item) => item === "popup")) {
+  if (evt.target.classList.contains("popup")) {
     const openedPopup = document.querySelector(".popup_opened");
     closePopup(openedPopup);
   }
@@ -94,6 +84,9 @@ function saveProfile(evt) {
 profileForm.addEventListener("submit", saveProfile);
 
 profileEditButton.addEventListener("click", function (evt) {
+  nameInput.value = nameProfile.textContent;
+  aboutMeInput.value = aboutProfile.textContent;
+
   openPopup(profilePopup);
 });
 profileCloseIcon.addEventListener("click", function (evt) {
@@ -113,6 +106,10 @@ placeForm.addEventListener("submit", addPlace);
 
 profileAddButton.addEventListener("click", function (evt) {
   openPopup(placePopup);
+  placeNameInput.value = "";
+  linkInput.value = "";
+  placePopupBtn.disabled = true;
+  placePopupBtn.classList.add("popup__btn_inactive");
 });
 placeCloseIcon.addEventListener("click", function (evt) {
   closePopup(placePopup);
