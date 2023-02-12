@@ -1,7 +1,10 @@
+import {Card} from './Card.js'
+import initialCards from './initialCards.js'
+export {closeByEsc, closeByOverlayClick};
+
 const profileEditButton = document.querySelector(".profile__edit-button");
 const profileAddButton = document.querySelector(".profile__add-button");
 
-const profilePopupBtn = document.querySelector("#profilePopupBtn");
 const placePopupBtn = document.querySelector("#placePopupBtn");
 
 const profileCloseIcon = document.querySelector("#profileCloseIcon");
@@ -12,7 +15,6 @@ const profilePopup = document.querySelector("#profilePopup");
 const placePopup = document.querySelector("#placePopup");
 const imagePopup = document.querySelector("#imagePopup");
 
-const popupOpened = document.querySelector(".popup_opened");
 const nameProfile = document.querySelector(".profile__name");
 const aboutProfile = document.querySelector(".profile__about");
 
@@ -24,10 +26,8 @@ const placeForm = document.querySelector("form[name=edit-place]");
 const placeNameInput = document.querySelector("#placeName-input");
 const linkInput = document.querySelector("#link-input");
 
-const elementTemplate = document.querySelector("#element").content;
 const gallery = document.querySelector(".elements__card");
-const imageFromPopup = imagePopup.querySelector(".image__img");
-const subtitleFromPopup = imagePopup.querySelector(".image__figcaption");
+
 
 const ESC_CODE = "Escape";
 
@@ -62,18 +62,6 @@ function renderCard(card, parentElement) {
   parentElement.prepend(card);
 }
 
-function setClassToglerOnClick(element, toggleClass) {
-  element.addEventListener("click", function () {
-    element.classList.toggle(toggleClass);
-  });
-}
-
-function setElementRemoverOnClick(element, removingElement = element) {
-  element.addEventListener("click", function () {
-    removingElement.remove();
-  });
-}
-
 function saveProfile(evt) {
   evt.preventDefault();
   nameProfile.textContent = nameInput.value;
@@ -96,7 +84,9 @@ profileCloseIcon.addEventListener("click", function (evt) {
 function addPlace(evt) {
   evt.preventDefault();
   const cardData = { name: placeNameInput.value, link: linkInput.value };
-  renderCard(createCard(cardData), gallery);
+  const newCard = new Card(cardData, "#element");
+
+  renderCard(newCard.generateCard(), gallery);
   placePopupBtn.disabled = true;
   placePopupBtn.classList.add("popup__btn_inactive");
   closePopup(placePopup);
@@ -115,34 +105,11 @@ placeCloseIcon.addEventListener("click", function (evt) {
   closePopup(placePopup);
 });
 
-function createCard(newCardData) {
-  const newElement = elementTemplate
-    .querySelector(".elements__item")
-    .cloneNode(true);
-
-  const image = newElement.querySelector(".elements__photo");
-  image.src = newCardData.link;
-  image.alt = newCardData.name;
-  newElement.querySelector(".elements__title").textContent = newCardData.name;
-
-  image.addEventListener("click", function () {
-    openPopup(imagePopup);
-    imageFromPopup.src = newCardData.link;
-    imageFromPopup.alt = newCardData.name;
-    subtitleFromPopup.textContent = newCardData.name;
-  });
-
-  const like = newElement.querySelector(".elements__like");
-  setClassToglerOnClick(like, "elements__like_active");
-
-  const deleteButton = newElement.querySelector(".elements__delete");
-  setElementRemoverOnClick(deleteButton, newElement);
-
-  return newElement;
-}
 
 for (const card of initialCards) {
-  renderCard(createCard(card), gallery);
+  const newCard = new Card(card, "#element");
+
+  renderCard(newCard.generateCard(), gallery);
 }
 
 ImageCloseIcon.addEventListener("click", function (evt) {
