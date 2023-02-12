@@ -8,7 +8,8 @@ export class Card {
       this._link = data.link;
       this._name = data.name;
       this._templateSelector = templateSelector;
-    }
+    };
+    
     _getTemplate() {
       const cardElement = document
         .querySelector(this._templateSelector)
@@ -16,7 +17,7 @@ export class Card {
         .cloneNode(true);
   
       return cardElement;
-    }
+    };
   
     generateCard() {
       this._element = this._getTemplate();
@@ -29,7 +30,7 @@ export class Card {
       this._setEventListeners();
   
       return this._element;
-    }
+    };
   
     _setEventListeners() {
       this._element.querySelector(".elements__like").addEventListener('click', () => {
@@ -42,16 +43,16 @@ export class Card {
       this._element.querySelector(".elements__photo").addEventListener('click', () => {
         this._handleImageClick();
       });
-    }
+    };
   
     _handleLikeClick() {
       this._element.querySelector(".elements__like").classList.toggle("elements__like_active");
-    }
+    };
   
   
     _handleDeleteClick(){
       this._element.remove();
-    }
+    };
   
     _handleImageClick() {
       imageFromPopup.src = this._link;
@@ -62,7 +63,5 @@ export class Card {
       document.querySelector("#imagePopup").classList.add("popup_opened");
       document.addEventListener("keydown", closeByEsc);
       document.addEventListener("click", closeByOverlayClick);
-    }
-  
-   
-  }
+    };
+}

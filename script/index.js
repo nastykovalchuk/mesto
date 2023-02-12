@@ -1,6 +1,7 @@
-import {Card} from './Card.js'
+import { Card } from './Card.js'
+import { FormValidator } from './FormValidator.js'
 import initialCards from './initialCards.js'
-export {closeByEsc, closeByOverlayClick};
+export { closeByEsc, closeByOverlayClick };
 
 const profileEditButton = document.querySelector(".profile__edit-button");
 const profileAddButton = document.querySelector(".profile__add-button");
@@ -28,8 +29,9 @@ const linkInput = document.querySelector("#link-input");
 
 const gallery = document.querySelector(".elements__card");
 
-
 const ESC_CODE = "Escape";
+
+
 
 function openPopup(popup) {
   popup.classList.add("popup_opened");
@@ -58,10 +60,7 @@ function closeByOverlayClick(evt) {
   }
 }
 
-function renderCard(card, parentElement) {
-  parentElement.prepend(card);
-}
-
+//    Profile    //
 function saveProfile(evt) {
   evt.preventDefault();
   nameProfile.textContent = nameInput.value;
@@ -69,6 +68,7 @@ function saveProfile(evt) {
   closePopup(profilePopup);
 }
 
+// event listeners from profile 
 profileForm.addEventListener("submit", saveProfile);
 
 profileEditButton.addEventListener("click", function (evt) {
@@ -80,19 +80,6 @@ profileEditButton.addEventListener("click", function (evt) {
 profileCloseIcon.addEventListener("click", function (evt) {
   closePopup(profilePopup);
 });
-
-function addPlace(evt) {
-  evt.preventDefault();
-  const cardData = { name: placeNameInput.value, link: linkInput.value };
-  const newCard = new Card(cardData, "#element");
-
-  renderCard(newCard.generateCard(), gallery);
-  placePopupBtn.disabled = true;
-  placePopupBtn.classList.add("popup__btn_inactive");
-  closePopup(placePopup);
-}
-
-placeForm.addEventListener("submit", addPlace);
 
 profileAddButton.addEventListener("click", function (evt) {
   openPopup(placePopup);
@@ -106,12 +93,53 @@ placeCloseIcon.addEventListener("click", function (evt) {
 });
 
 
+//    Places    //
+function addPlace(evt) {
+  evt.preventDefault();
+  const cardData = { name: placeNameInput.value, link: linkInput.value };
+  const newCard = new Card(cardData, "#element");
+
+  renderCard(newCard.generateCard(), gallery);
+  placePopupBtn.disabled = true;
+  placePopupBtn.classList.add("popup__btn_inactive");
+  closePopup(placePopup);
+}
+
+// event listeners from place 
+placeForm.addEventListener("submit", addPlace);
+
+ImageCloseIcon.addEventListener("click", function (evt) {
+  closePopup(imagePopup);
+});
+
+// render initial cards
+
+function renderCard(card, parentElement) {
+  parentElement.prepend(card);
+}
+
 for (const card of initialCards) {
   const newCard = new Card(card, "#element");
 
   renderCard(newCard.generateCard(), gallery);
 }
 
-ImageCloseIcon.addEventListener("click", function (evt) {
-  closePopup(imagePopup);
+
+// Validation forms
+
+const setValidation = (options) => {
+  const formList = Array.from(document.querySelectorAll(options.formSelector));
+
+  formList.forEach((formElement) => {
+    new FormValidator(options, formElement).enableValidation();
+  });
+};
+
+setValidation({
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__btn",
+  inactiveButtonClass: "popup__btn_inactive",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__input-error_active",
 });
