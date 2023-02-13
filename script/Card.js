@@ -1,13 +1,13 @@
-import {closeByEsc, closeByOverlayClick} from './index.js'
-
-const imageFromPopup = imagePopup.querySelector(".image__img");
-const subtitleFromPopup = imagePopup.querySelector(".image__figcaption");
-
 export class Card {
-    constructor(data, templateSelector) {
+    constructor(data, templateSelector, handleCardClick) {
       this._link = data.link;
       this._name = data.name;
       this._templateSelector = templateSelector;
+      this._element = this._getTemplate();
+      this._likeButton = this._element.querySelector(".elements__like");
+      this._deleteButton = this._element.querySelector(".elements__delete");
+      this._cardImage = this._element.querySelector(".elements__photo");
+      this._handleCardClick = handleCardClick;
     };
     
     _getTemplate() {
@@ -20,11 +20,8 @@ export class Card {
     };
   
     generateCard() {
-      this._element = this._getTemplate();
-  
-      const image = this._element.querySelector(".elements__photo");
-      image.src = this._link;
-      image.alt = this._name;
+      this._cardImage.src = this._link;
+      this._cardImage.alt = this._name;
       this._element.querySelector(".elements__title").textContent = this._name;
   
       this._setEventListeners();
@@ -33,35 +30,24 @@ export class Card {
     };
   
     _setEventListeners() {
-      this._element.querySelector(".elements__like").addEventListener('click', () => {
+      this._likeButton.addEventListener('click', () => {
         this._handleLikeClick();
       });
   
-      this._element.querySelector(".elements__delete").addEventListener('click', () => {
+      this._deleteButton.addEventListener('click', () => {
         this._handleDeleteClick();
       });
-      this._element.querySelector(".elements__photo").addEventListener('click', () => {
-        this._handleImageClick();
+      this._cardImage.addEventListener('click', () => {
+        this._handleCardClick(this._name, this._link)
       });
     };
   
     _handleLikeClick() {
-      this._element.querySelector(".elements__like").classList.toggle("elements__like_active");
+     this._likeButton.classList.toggle("elements__like_active");
     };
   
   
     _handleDeleteClick(){
       this._element.remove();
-    };
-  
-    _handleImageClick() {
-      imageFromPopup.src = this._link;
-      imageFromPopup.alt = this._name;
-      subtitleFromPopup.textContent = this._name;
-  
-      imageFromPopup.src = this._link;
-      document.querySelector("#imagePopup").classList.add("popup_opened");
-      document.addEventListener("keydown", closeByEsc);
-      document.addEventListener("click", closeByOverlayClick);
     };
 }
