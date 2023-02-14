@@ -110,7 +110,6 @@ profileAddButton.addEventListener("click", function (evt) {
   formValidators["edit-place"].resetValidation();
   openPopup(placePopup);
   placeForm.reset();
-  placePopupBtn.classList.add("popup__btn_inactive");
 });
 
 closeButtons.forEach((button) => {
@@ -124,8 +123,6 @@ function addPlace(evt) {
   const cardData = { name: placeNameInput.value, link: linkInput.value };
 
   renderCard(createCard(cardData), gallery);
-  placePopupBtn.disabled = true;
-  placePopupBtn.classList.add("popup__btn_inactive");
   closePopup(placePopup);
 }
 
