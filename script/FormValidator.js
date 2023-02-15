@@ -2,7 +2,6 @@ export class FormValidator {
   constructor(options, formElement) {
     this._formElement = formElement;
     this._options = options;
-    this._formError = this._formElement.querySelector(`.${inputElement.id}-error`);
   }
 
   enableValidation() {
@@ -61,17 +60,17 @@ export class FormValidator {
 
   _showError(inputElement, errorMessage) {
     inputElement.classList.add(this._options.inputErrorClass);
+    this._formError = this._formElement.querySelector(`.${inputElement.id}-error`);
 
     this._formError.textContent = errorMessage;
-
     this._formError.classList.add(this._options.errorClass);
   }
 
   _hideError(inputElement) {
     inputElement.classList.remove(this._options.inputErrorClass);
+    this._formError = this._formElement.querySelector(`.${inputElement.id}-error`);
 
-
-    this._formError.classList.remove(this._options.errorClass);
     this._formError.textContent = "";
+    this._formError.classList.remove(this._options.errorClass);
   }
 }
