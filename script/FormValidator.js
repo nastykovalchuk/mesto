@@ -61,19 +61,17 @@ export class FormValidator {
 
   _showError(inputElement, errorMessage) {
     inputElement.classList.add(this._options.inputErrorClass);
+    this._formError = this._formElement.querySelector(`.${inputElement.id}-error`);
 
-    const formError = this._formElement.querySelector(`.${inputElement.id}-error`);
-
-    formError.textContent = errorMessage;
-    formError.classList.add(this._options.errorClass);
+    this._formError.textContent = errorMessage;
+    this._formError.classList.add(this._options.errorClass);
   }
 
   _hideError(inputElement) {
     inputElement.classList.remove(this._options.inputErrorClass);
+    this._formError = this._formElement.querySelector(`.${inputElement.id}-error`);
 
-    const formError = this._formElement.querySelector(`.${inputElement.id}-error`);
-
-    formError.classList.remove(this._options.errorClass);
-    formError.textContent = "";
+    this._formError.textContent = "";
+    this._formError.classList.remove(this._options.errorClass);
   }
 }

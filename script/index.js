@@ -1,16 +1,9 @@
 import { Card } from "./Card.js";
 import { FormValidator } from "./FormValidator.js";
 import initialCards from "./initialCards.js";
-export { closeByEsc, closeByOverlayClick };
 
 const profileEditButton = document.querySelector(".profile__edit-button");
 const profileAddButton = document.querySelector(".profile__add-button");
-
-const placePopupBtn = document.querySelector("#placePopupBtn");
-
-const profileCloseIcon = document.querySelector("#profileCloseIcon");
-const placeCloseIcon = document.querySelector("#placeCloseIcon");
-const ImageCloseIcon = document.querySelector("#imageCloseIcon");
 
 const closeButtons = document.querySelectorAll(".popup__close-icon");
 
@@ -98,18 +91,17 @@ function saveProfile(evt) {
 // event listeners from profile
 profileForm.addEventListener("submit", saveProfile);
 
-profileEditButton.addEventListener("click", function (evt) {
-  formValidators["edit-info"].resetValidation();
+profileEditButton.addEventListener("click", function () {
   nameInput.value = nameProfile.textContent;
   aboutMeInput.value = aboutProfile.textContent;
-
+  formValidators["edit-info"].resetValidation();
   openPopup(profilePopup);
 });
 
-profileAddButton.addEventListener("click", function (evt) {
-  formValidators["edit-place"].resetValidation();
-  openPopup(placePopup);
+profileAddButton.addEventListener("click", function () {
   placeForm.reset();
+  formValidators["edit-place"].resetValidation();
+  openPopup(placePopup)
 });
 
 closeButtons.forEach((button) => {
@@ -129,9 +121,6 @@ function addPlace(evt) {
 // event listeners from place
 placeForm.addEventListener("submit", addPlace);
 
-ImageCloseIcon.addEventListener("click", function (evt) {
-  closePopup(imagePopup);
-});
 
 // render initial cards
 
@@ -142,9 +131,6 @@ function renderCard(card, parentElement) {
 for (const card of initialCards) {
   renderCard(createCard(card), gallery);
 }
-
-// Validation forms
-
 
 
 // Включение валидации
