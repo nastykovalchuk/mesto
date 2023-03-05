@@ -1,6 +1,10 @@
-import { Card } from "./Card.js";
-import { FormValidator } from "./FormValidator.js";
-import initialCards from "./initialCards.js";
+import { Card } from "../components/Card.js";
+import { FormValidator } from "../components/FormValidator.js";
+import initialCards from "../components/initialCards.js";
+import "./index.css";
+import UserInfo from "../components/UserInfo.js";
+import Section from "../components/Section.js";
+
 
 const profileEditButton = document.querySelector(".profile__edit-button");
 const profileAddButton = document.querySelector(".profile__add-button");
@@ -22,7 +26,7 @@ const placeForm = document.querySelector("form[name=edit-place]");
 const placeNameInput = document.querySelector("#placeName-input");
 const linkInput = document.querySelector("#link-input");
 
-const gallery = document.querySelector(".elements__card");
+// const gallery = document.querySelector(".elements__card");
 
 const ESC_CODE = "Escape";
 //
@@ -81,19 +85,31 @@ function createCard(cardData) {
 }
 
 //    Profile    //
+
+const userInfo = new UserInfo({
+  nameProfile: ".profile__name",
+  aboutProfile: ".profile__about",
+});
+
+// !!!!!!!!!!!!!!!
+
 function saveProfile(evt) {
   evt.preventDefault();
-  nameProfile.textContent = nameInput.value;
-  aboutProfile.textContent = aboutMeInput.value;
+
+  userInfo.setUserInfo({
+    name: nameInput.value,
+    about: aboutMeInput.value,
+  });
   closePopup(profilePopup);
 }
+// !!!!!!!!!!!!!!!
 
 // event listeners from profile
 profileForm.addEventListener("submit", saveProfile);
 
 profileEditButton.addEventListener("click", function () {
-  nameInput.value = nameProfile.textContent;
-  aboutMeInput.value = aboutProfile.textContent;
+  nameInput.value = userInfo.getUserInfo().nameProfile;
+  aboutMeInput.value = userInfo.getUserInfo().aboutProfile;
   formValidators["edit-info"].resetValidation();
   openPopup(profilePopup);
 });
@@ -101,7 +117,7 @@ profileEditButton.addEventListener("click", function () {
 profileAddButton.addEventListener("click", function () {
   placeForm.reset();
   formValidators["edit-place"].resetValidation();
-  openPopup(placePopup)
+  openPopup(placePopup);
 });
 
 closeButtons.forEach((button) => {
@@ -121,17 +137,18 @@ function addPlace(evt) {
 // event listeners from place
 placeForm.addEventListener("submit", addPlace);
 
-
 // render initial cards
 
-function renderCard(card, parentElement) {
-  parentElement.prepend(card);
-}
+// function renderCard(card, parentElement) {
+//   parentElement.prepend(card);
+// }
 
-for (const card of initialCards) {
-  renderCard(createCard(card), gallery);
-}
+// for (const card of initialCards) {
+//   renderCard(createCard(card), gallery);
+// }
 
+const gallery = new Section({items: initialCards, renderer: createCard}, ".elements__card");
+gallery.rendererAll();
 
 // Включение валидации
 const enableValidation = (config) => {

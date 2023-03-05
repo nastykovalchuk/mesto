@@ -4,14 +4,13 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./pages/index.css" />
     <title>Mesto</title>
   </head>
 
   <body class="page">
     <div class="page__content">
       <header class="header">
-        <img class="header__logo" src="./images/logo.svg" alt="Лого" />
+        <img class="header__logo" src="<%=require('./images/logo.svg')%>" alt="Лого" />
       </header>
 
       <main class="page__main">
@@ -19,7 +18,7 @@
           <div class="profile__avatar">
             <img
               class="profile__image"
-              src="./images/Kusto.svg"
+              src="<%=require('./images/Kusto.svg')%>"
               alt="Фото профиля"
             />
           </div>
@@ -156,9 +155,5 @@
         </div>
       </li>
     </template>
-    <script type="module" src="./script/index.js"></script>
-    <script type="module" src="./script/Card.js"></script>
-    <script type="module" src="./script/initialCards.js"></script>
-    <script type="module" src="./script/FormValidator.js"></script>
   </body>
 </html>
