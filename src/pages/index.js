@@ -1,6 +1,6 @@
 import "./index.css";
 import Section from "../components/Section.js";
-import initialCards from "../components/initialCards.js";
+import initialCards from "../initialCards.js";
 import Card from "../components/Card.js";
 import UserInfo from "../components/UserInfo.js";
 import PopupWithImage from "../components/PopupWithImage.js";
