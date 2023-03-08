@@ -6,12 +6,12 @@ export default class UserInfo {
 // возвращает объект с данными пользователя
 
   getUserInfo() {
-    return {nameProfile: this._nameProfile.textContent, aboutProfile: this._aboutProfile.textContent}
+    return {name: this._nameProfile.textContent, aboutMe: this._aboutProfile.textContent}
   }
 // принимает новые данные
 
   setUserInfo(data) {
     this._nameProfile.textContent = data.name;
-    this._aboutProfile.textContent = data.about;
+    this._aboutProfile.textContent = data.aboutMe;
   }
 }
