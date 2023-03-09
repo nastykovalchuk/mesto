@@ -27,7 +27,10 @@ export default class Popup {
   }
 
   setEventListeners() {
-    this._popup.addEventListener("click", this._handleOverlayClick.bind(this));
+    this._popup.addEventListener(
+      "mousedown",
+      this._handleOverlayClick.bind(this)
+    );
     this._button.addEventListener("click", this.close.bind(this));
   }
 }
