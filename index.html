@@ -20,11 +20,18 @@
       <main class="page__main">
         <section class="profile">
           <div class="profile__avatar">
-            <img
-              class="profile__image"
-              src="c7a1c76bbb805d6b60db.svg"
-              alt="Фото профиля"
-            />
+            <button
+              type="button"
+              class="profile__avatar-edit-button"
+              title="Редактировать профиль"
+              aria-label="Редактировать профиль"
+            >
+              <img
+                class="profile__image"
+                src="c7a1c76bbb805d6b60db.svg"
+                alt="Фото профиля"
+              />
+            </button>
           </div>
 
           <div class="profile__info">
@@ -45,6 +52,42 @@
         <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
       </footer>
 
+      <!-- avatar popup -->
+
+      <div class="popup" id="avatarPopup">
+        <div class="popup__container">
+          <button
+            type="button"
+            class="popup__close-icon"
+            id="avatarCloseIcon"
+            title="Закрыть"
+            aria-label="Закрыть"
+          ></button>
+          <h3 class="popup__title">Обновить аватар</h3>
+          <form action="#" name="edit_avatar_form" class="popup__form">
+            <input
+              type="url"
+              id="profile_avatar_field"
+              class="popup__input"
+              name="valueProfileAvatar"
+              placeholder="Ссылка на аватар"
+              title="Ссылка на аватар"
+              required="required"
+            />
+            <span class="popup__input-error profile_avatar_field-error"></span>
+            <button
+              type="submit"
+              class="popup__btn"
+              id="avatarPopupBtn"
+              title="Сохранить аватар"
+              aria-label="Сохранить аватар"
+            >
+              Сохранить
+            </button>
+          </form>
+        </div>
+      </div>
+      <!-- popup Profile -->
       <div class="popup" id="profilePopup">
         <div class="popup__container">
           <button
@@ -88,7 +131,7 @@
           </form>
         </div>
       </div>
-
+      <!-- popup place -->
       <div class="popup" id="placePopup">
         <div class="popup__container">
           <button
@@ -131,6 +174,29 @@
         </div>
       </div>
 
+      <div class="popup" id="popup_delite_place">
+        <div class="popup__container">
+          <button
+            class="popup__close-icon"
+            id="typePreventCloseIcon"
+            type="button"
+            aria-label="Закрыть"
+          ></button>
+          <h2 class="popup__title">Вы уверены?</h2>
+          <form class="popup__form" action="#" name="prevent-form" novalidate>
+            <button
+              class="popup__btn"
+              id="typePreventPopupBtn"
+              type="submit"
+              name="submit"
+            >
+              Да
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- popup image -->
       <div class="popup popup_darker" id="imagePopup">
         <div class="image">
           <button
@@ -153,10 +219,12 @@
 
         <div class="elements__caption">
           <h2 class="elements__title"></h2>
-          <button class="elements__like" type="button"></button>
+          <div class="elements__like-cover">
+            <button class="elements__like" type="button"></button>
+            <span class="elements__like-counter">0</span>
+          </div>
         </div>
       </li>
     </template>
   </body>
 </html>
-
