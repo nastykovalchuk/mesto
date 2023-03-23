@@ -1,5 +1,6 @@
 .elements__like {
-  display: block;
+  display: flex;
+  flex-direction: column;
   min-width: 22px;
   width: 19px;
   height: 19px;
@@ -9,6 +10,7 @@
   background-position: 50%;
   position: relative;
   cursor: pointer;
+  color: black;
 }
 
 .elements__like:hover {

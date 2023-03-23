@@ -1,17 +1,33 @@
 export default class UserInfo {
-  constructor({ nameProfile, aboutProfile }) {
+  constructor({ nameProfile, aboutProfile, avatarProfile }) {
     this._nameProfile = document.querySelector(nameProfile);
     this._aboutProfile = document.querySelector(aboutProfile);
+    this._avatarProfile = document.querySelector(avatarProfile);
   }
-// возвращает объект с данными пользователя
+
+  initUserInfo(data) {
+    this.setUserInfo(data);
+    this.setUserAvatar(data);
+  }
 
   getUserInfo() {
-    return {name: this._nameProfile.textContent, aboutMe: this._aboutProfile.textContent}
+    return {
+      name: this._nameProfile.textContent,
+      aboutMe: this._aboutProfile.textContent,
+    };
   }
-// принимает новые данные
 
   setUserInfo(data) {
+    if (!this._userId) this._userId = data._id;
+    
     this._nameProfile.textContent = data.name;
-    this._aboutProfile.textContent = data.aboutMe;
+    this._aboutProfile.textContent = data.about;
+  }
+
+  getUserId() {
+    return this._userId;
+  }
+  setUserAvatar(data) {
+    this._avatarProfile.src = data.avatar;
   }
 }

@@ -1,13 +1,16 @@
-const profileEditButton = document.querySelector(".profile__edit-button");
-const profileAddButton = document.querySelector(".profile__add-button");
+export const profileEditButton = document.querySelector(".profile__edit-button");
+export const profileAddButton = document.querySelector(".profile__add-button");
+export const avatarAddButton = document.querySelector('.profile__avatar-edit-button');
 
-const profilePopup = document.querySelector("#profilePopup");
-const placePopup = document.querySelector("#placePopup");
-const imagePopup = document.querySelector("#imagePopup");
+export const profilePopup = document.querySelector("#profilePopup");
+export const placePopup = document.querySelector("#placePopup");
+export const imagePopup = document.querySelector("#imagePopup");
+export const delitePopup = document.querySelector('#popup_delite_place');
 
-const formValidators = {};
+export const avatarPopup = document.querySelector('#avatarPopup');
+export const formValidators = {};
 
-const validationConfig = {
+export const validationConfig = {
   formSelector: ".popup__form",
   inputSelector: ".popup__input",
   submitButtonSelector: ".popup__btn",
