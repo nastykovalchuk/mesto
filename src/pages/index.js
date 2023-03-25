@@ -28,10 +28,14 @@ const api = new Api({
   },
 });
 
-Promise.all([api.getUserInfo(), api.getCards()]).then(([user, cards]) => {
-  userInfo.initUserInfo(user);
-  gallery.renderer(cards.reverse());
-});
+Promise.all([api.getUserInfo(), api.getCards()])
+  .then(([user, cards]) => {
+    userInfo.initUserInfo(user);
+    gallery.renderer(cards.reverse());
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 const userInfo = new UserInfo({
   nameProfile: ".profile__name",
@@ -40,20 +44,32 @@ const userInfo = new UserInfo({
 });
 
 function handleFormSubmitAvatar(link) {
-  api.patchAvatar(link)
-  .then((res) => userInfo.setUserAvatar(res))
-  .finally(() => popupWithFormAvatar.hideLoading());
+  api
+    .patchAvatar(link)
+    .then((res) => {
+      userInfo.setUserAvatar(res);
+      popupWithFormAvatar.close();
+    })
+    .finally(() => popupWithFormAvatar.hideLoading());
 }
 
 function handleFormSubmitProfile(data) {
-  api.patchUserInfo(data)
-  .then((res) => userInfo.setUserInfo(res))
-  .finally(() => popupWithFormProfile.hideLoading());
+  api
+    .patchUserInfo(data)
+    .then((res) => {
+      userInfo.setUserInfo(res);
+      popupWithFormProfile.close();
+    })
+    .finally(() => popupWithFormProfile.hideLoading());
 }
 
 function handleFormSubmitAddPlace(data) {
-  api.newCard(data)
-    .then((res) => gallery.addItem(res))
+  api
+    .newCard(data)
+    .then((res) => {
+      gallery.addItem(res);
+      popupWithFormAddPlace.close();
+    })
     .finally(() => popupWithFormAddPlace.hideLoading());
 }
 
@@ -63,21 +79,38 @@ function handleCardClick(name, link) {
 function handleDeliteIconClick(id, func) {
   popupDelitePlace.open();
   popupDelitePlace.setConfirmAction(function () {
-    api.deleteCard(id).then(() => func());
+    api
+      .deleteCard(id)
+      .then(() => {
+        func();
+        popupDelitePlace.close();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   });
 }
 
 function hendleLikeIconClick(card) {
-  if (card.isLiked()){
-    api.unSetLike(card.getCardId()).then(res => {
-      card.setLikes(res.likes)
-    });
+  if (card.isLiked()) {
+    api
+      .unSetLike(card.getCardId())
+      .then((res) => {
+        card.setLikes(res.likes);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   } else {
-    api.setLike(card.getCardId()).then(res => {
-      card.setLikes(res.likes)
-    });
+    api
+      .setLike(card.getCardId())
+      .then((res) => {
+        card.setLikes(res.likes);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
-  
 }
 
 const gallery = new Section(
@@ -92,7 +125,7 @@ function createCard(cardData) {
     "#element",
     handleCardClick,
     handleDeliteIconClick,
-    hendleLikeIconClick,
+    hendleLikeIconClick
   );
   const cardElement = newCard.generateCard();
   return cardElement;

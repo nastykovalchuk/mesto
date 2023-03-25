@@ -23,8 +23,7 @@ export default class PopupWithForm extends Popup {
   }
 
   hideLoading() {
-    this._submitButton.textContent = this._originalSubmitButtonText
-    this.close()
+    this._submitButton.textContent = this._originalSubmitButtonText;
   }
 
   setInputsValues(data) {
